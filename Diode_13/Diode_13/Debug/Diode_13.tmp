@@ -1,0 +1,33 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\Debug\Diode_13.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Diode_13.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Diode_13.map</FILE>
+  <FILE>Diode_13.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <Init><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>185</LINE></Init>
+  <TC0_OV><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>103</LINE></TC0_OV>
+  <handler_out><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>122</LINE></handler_out>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>130</LINE></Reset>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>138</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>142</LINE></Flush>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\Diode_13\Diode_13\main.asm</FILE><LINE>220</LINE></Main>
+ </LABELS>
+</ASSEMBLER_INFO>

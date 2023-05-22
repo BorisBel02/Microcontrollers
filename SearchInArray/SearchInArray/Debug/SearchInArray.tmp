@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\Debug\SearchInArray.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>SearchInArray.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>SearchInArray.map</FILE>
+  <FILE>SearchInArray.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <Array><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>34</LINE></Array>
+  <Reset><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>100</LINE></Reset>
+  <ArrayFLASH><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>98</LINE></ArrayFLASH>
+  <RAM_Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>107</LINE></RAM_Flush>
+  <Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>110</LINE></Flush>
+  <Main><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>169</LINE></Main>
+  <Search><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>181</LINE></Search>
+  <SearchLoop><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>188</LINE></SearchLoop>
+  <EndSearch><FILE>c:\users\borik\Documents\Atmel Studio\7.0\SearchInArray\SearchInArray\main.asm</FILE><LINE>196</LINE></EndSearch>
+ </LABELS>
+</ASSEMBLER_INFO>

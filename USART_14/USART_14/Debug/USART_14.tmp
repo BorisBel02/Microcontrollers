@@ -1,0 +1,40 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\Debug\USART_14.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>USART_14.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>USART_14.map</FILE>
+  <FILE>USART_14.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <Array><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>36</LINE></Array>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>173</LINE></Reset>
+  <Transm_ready><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>98</LINE></Transm_ready>
+  <Recv_handler><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>111</LINE></Recv_handler>
+  <Recv_first><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>134</LINE></Recv_first>
+  <Recv_out><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>159</LINE></Recv_out>
+  <Find_and_send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>141</LINE></Find_and_send>
+  <Send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>153</LINE></Send>
+  <Transm_done><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>162</LINE></Transm_done>
+  <ArrayFLASH><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>171</LINE></ArrayFLASH>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>181</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>184</LINE></Flush>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>256</LINE></Main>
+  <Loop><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>265</LINE></Loop>
+ </LABELS>
+</ASSEMBLER_INFO>
