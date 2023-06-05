@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm Tue May 23 03:20:50 2023
+AVRASM ver. 2.2.8  C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm Mon Jun 05 21:51:26 2023
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
 C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
@@ -1065,7 +1065,7 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
                                  ; FLASH ======================================================
                                           .CSEG
                                           .ORG $000      ; (RESET) 
-000000 c061                               RJMP   Reset
+000000 c062                               RJMP   Reset
                                           .ORG $002
 000002 9518                               RETI             ; (INT0) External Interrupt Request 0
                                           .ORG $004
@@ -1101,11 +1101,11 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
                                           .ORG $022
 000022 9518                               RETI             ; SPI Serial Transfer Complete
                                           .ORG $024
-000024 9518                               RETI             ; USART Rx Complete
+000024 c016                               RJMP Recv_handler             ; USART Rx Complete
                                           .ORG $026
-000026 9518                               RETI             ; USART, Data Register Empty
+000026 c00d                               RJMP Transm_ready             ; USART, Data Register Empty
                                           .ORG $028
-000028 9518                               RETI             ; USART Tx Complete
+000028 c031                               RJMP Transm_done              ; USART Tx Complete
                                  		 .ORG $02A
 00002a 9518                      		 RETI			  ; ADC Conversion Complete
                                  		 .ORG $02C
@@ -1126,15 +1126,14 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
 000035 e0b0                      	LDI XH, high(UDR0)
 000036 938c                      	ST X, DATA
                                  
-000037 e408                      	LDI R16, (1 << TXEN0) | (1 << TXCIE0)
-000038 eca1                      	LDI XL, low(UCSR0B)
-000039 e0b0                      	LDI XH, high(UCSR0B)
-00003a 930c                      	ST X, R16
+000037 e408
+000038 9300 00c1                 	OUTI UCSR0B, (1 << TXEN0) | (1 << TXCIE0)
                                  
-00003b 9518                      	RETI
+00003a 9518                      	RETI
                                  
                                  
                                  Recv_handler:
+00003b 9413                      	INC R1
 00003c eca6                      	LDI XL, low(UDR0)
 00003d e0b0                      	LDI XH, high(UDR0)
 00003e 918c                      	LD DATA, X
@@ -1154,7 +1153,7 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
                                  
 000047 e090                      	LDI RECV_COUNT, 0
                                  
-000048 c00e                      	RJMP Recv_out
+000048 c00a                      	RJMP Send
                                  
                                  
                                  Recv_first:
@@ -1162,10 +1161,9 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
 00004a f010                      	BRLO Find_and_send
                                  	
 00004b 2f78                      	MOV PREV_DATA, DATA
-00004c c00a                      	RJMP Recv_out
+00004c c00c                      	RJMP Recv_out
                                  
                                  Find_and_send:
-                                 
 00004d e0c0                      	LDI YL, low(Array)
 00004e e0d1                      	LDI YH, high(Array)
                                  
@@ -1174,99 +1172,109 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
                                  
 000051 8188                      	LD DATA, Y
                                  
-000052 e090                      	LDI RECV_COUNT, 0
+000052 2799                      	CLR RECV_COUNT
                                  
                                  Send:
-000053 e208                      	LDI R16, (1 << TXEN0) | (1 << UDRIE0)
-000054 eca1                      	LDI XL, low(UCSR0B)
-000055 e0b0                      	LDI XH, high(UCSR0B)
-000056 930c                      	ST X, R16
-                                 
+000053 eca6                      	LDI XL, low(UDR0)
+000054 e0b0                      	LDI XH, high(UDR0)
+000055 938c                      	ST X, DATA
+000056 e208
+000057 9300 00c1                 	OUTI UCSR0B, (1 << TXEN0) | (1 << UDRIE0)
+                                 	
                                  Recv_out:
-000057 9518                      RETI
+000059 9518                      	RETI
                                  
                                  Transm_done:
-000058 e900                      	LDI R16, (1 << RXEN0) | (1 << RXCIE0)
-000059 eca1                      	LDI XL, low(UCSR0B)
-00005a e0b0                      	LDI XH, high(UCSR0B)
-00005b 930c                      	ST X, R16
-00005c 9518                      	RETI
+00005a e900
+00005b 9300 00c1                 	OUTI UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+                                 	
+00005d 9518                      	RETI
                                  
                                  ; End Interrupts ==========================================
                                  
-00005d 0d0c
-00005e 0504
-00005f 0720
-000060 865a
-000061 5702                      ArrayFLASH: .DB 12, 13, 4, 5, 32, 7, 90, 134, 2, 87
+00005e 0d0c
+00005f 0504
+000060 0720
+000061 865a
+000062 5702                      ArrayFLASH: .DB 12, 13, 4, 5, 32, 7, 90, 134, 2, 87
                                  
                                  Reset:   	
-000062 ef0f                      		LDI R16,Low(RAMEND)		; Инициализация стека
-000063 bf0d                      	  	OUT SPL,R16			
+000063 ef0f                      		LDI R16,Low(RAMEND)		; Инициализация стека
+000064 bf0d                      	  	OUT SPL,R16			
                                   
-000064 e004                      	  	LDI R16,High(RAMEND)
-000065 bf0e                      	  	OUT SPH,R16
+000065 e004                      	  	LDI R16,High(RAMEND)
+000066 bf0e                      	  	OUT SPH,R16
                                   
                                  ; Start coreinit.inc
-000066 e0e0                      RAM_Flush:	LDI	ZL,Low(SRAM_START)	; Адрес начала ОЗУ в индекс
-000067 e0f1                      		LDI	ZH,High(SRAM_START)
-000068 2700                      		CLR	R16			; Очищаем R16
-000069 9301                      Flush:		ST 	Z+,R16			; Сохраняем 0 в ячейку памяти
-00006a 30f4                      		CPI	ZH,High(RAMEND)		; Достигли конца оперативки?
-00006b f7e9                      		BRNE	Flush			; Нет? Крутимся дальше!
+                                 RAM_Flush:	
+000067 e0e0                      	LDI	ZL,Low(SRAM_START)	
+000068 e0f1                      	LDI	ZH,High(SRAM_START)
+000069 2700                      	CLR	R16			; Очищаем R16
+                                 Flush:
+00006a 9301                      	ST 	Z+,R16			; Сохраняем 0 в ячейку памяти
+00006b 30f4                      	CPI	ZH,High(RAMEND)		
+00006c f7e9                      	BRNE	Flush			
                                   
-00006c 3fef                      		CPI	ZL,Low(RAMEND)		; А младший байт достиг конца?
-00006d f7d9                      		BRNE	Flush
+00006d 3fef                      	CPI	ZL,Low(RAMEND)		
+00006e f7d9                      	BRNE	Flush
                                   
-00006e 27ee                      		CLR	ZL			; Очищаем индекс
-00006f 27ff                      		CLR	ZH
-000070 2400                      		CLR	R0
-000071 2411                      		CLR	R1
-000072 2422                      		CLR	R2
-000073 2433                      		CLR	R3
-000074 2444                      		CLR	R4
-000075 2455                      		CLR	R5
-000076 2466                      		CLR	R6
-000077 2477                      		CLR	R7
-000078 2488                      		CLR	R8
-000079 2499                      		CLR	R9
-00007a 24aa                      		CLR	R10
-00007b 24bb                      		CLR	R11
-00007c 24cc                      		CLR	R12
-00007d 24dd                      		CLR	R13
-00007e 24ee                      		CLR	R14
-00007f 24ff                      		CLR	R15
-000080 2700                      		CLR	R16
-000081 2711                      		CLR	R17
-000082 2722                      		CLR	R18
-000083 2733                      		CLR	R19
-000084 2744                      		CLR	R20
-000085 2755                      		CLR	R21
-000086 2766                      		CLR	R22
-000087 2777                      		CLR	R23
-000088 2788                      		CLR	R24
-000089 2799                      		CLR	R25
-00008a 27aa                      		CLR	R26
-00008b 27bb                      		CLR	R27
-00008c 27cc                      		CLR	R28
-00008d 27dd                      		CLR	R29
+00006f 27ee                       	CLR	ZL			
+000070 27ff                      	CLR	ZH
+000071 2400                      	CLR	R0
+000072 2411                      	CLR	R1
+000073 2422                      	CLR	R2
+000074 2433                      	CLR	R3
+000075 2444                      	CLR	R4
+000076 2455                      	CLR	R5
+000077 2466                      	CLR	R6
+000078 2477                      	CLR	R7
+000079 2488                      	CLR	R8
+00007a 2499                      	CLR	R9
+00007b 24aa                      	CLR	R10
+00007c 24bb                      	CLR	R11
+00007d 24cc                      	CLR	R12
+00007e 24dd                      	CLR	R13
+00007f 24ee                      	CLR	R14
+000080 24ff                      	CLR	R15
+000081 2700                      	CLR	R16
+000082 2711                      	CLR	R17
+000083 2722                      	CLR	R18
+000084 2733                      	CLR	R19
+000085 2744                      	CLR	R20
+000086 2755                      	CLR	R21
+000087 2766                      	CLR	R22
+000088 2777                      	CLR	R23
+000089 2788                      	CLR	R24
+00008a 2799                      	CLR	R25
+00008b 27aa                      	CLR	R26
+00008c 27bb                      	CLR	R27
+00008d 27cc                      	CLR	R28
+00008e 27dd                      	CLR	R29
                                  ; End coreinit.inc
                                  
                                  ; Internal Hardware Init  ======================================
-00008e e006                      LDI R16, (1 << UCSZ01) | (1 << UCSZ00)
-00008f eca2                      LDI XL, low(UCSR0C)
-000090 e0b0                      LDI XH, high(UCSR0C)
-000091 930c                      ST X, R16
+00008f e06a                      	LDI R22, 10
+000090 ebec                      	LDI ZL, low(ArrayFLASH * 2)
+000091 e0f0                      	LDI ZH, high(ArrayFLASH * 2)
+000092 e0c0                      	LDI YL, low(Array)
+000093 e0d1                      	LDI YH, high(Array)
                                  
-000092 e607                      LDI R16, 103
-000093 eca4                      LDI XL, low(UBRR0L)
-000094 e0b0                      LDI XH, high(UBRR0L)
-000095 930c                      ST X, R16
+000094 920f
+000095 9005
+000096 9209
+000097 956a
+000098 f7e1
+000099 900f                      	FLASH2RAM R22
                                  
-000096 e900                      LDI R16, (1 << RXEN0) | (1 << RXCIE0)
-000097 eca1                      LDI XL, low(UCSR0B)
-000098 e0b0                      LDI XH, high(UCSR0B)
-000099 930c                      ST X, R16
+00009a e000
+00009b 9300 00c0                 OUTI	UCSR0A, 0
+00009d e006
+00009e 9300 00c2                 OUTI	UCSR0C, (3 << UCSZ00); 8 bit packet
+0000a0 e607
+0000a1 9300 00c4                 OUTI	UBRR0L, 103
+0000a3 e900
+0000a4 9300 00c1                 OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+                                 
                                  ; End Internal Hardware Init ===================================
                                   
                                  ; External Hardware Init  ======================================
@@ -1280,25 +1288,17 @@ C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm(1): Includi
                                  
                                  
                                  
-                                 
+0000a6 9478                      SEI
                                  
                                  ; Main =========================================================
                                  Main:
-00009a e06a                      		LDI R22, 10
-00009b ebea                      		LDI ZL, low(ArrayFLASH * 2)
-00009c e0f0                      		LDI ZH, high(ArrayFLASH * 2)
-00009d e0c0                      		LDI YL, low(Array)
-00009e e0d1                      		LDI YH, high(Array)
-00009f 920f
-0000a0 9005
-0000a1 9209
-0000a2 956a
-0000a3 f7e1
-0000a4 900f                      		FLASH2RAM R22
-                                 
+                                 	
                                  		
-                                 		Loop:
-0000a5 cfff                      		RJMP	Loop
+                                 	Loop:
+0000a7 0000                      	NOP
+0000a8 0000                      	NOP
+0000a9 0000                      	NOP
+0000aa cffc                      	RJMP	Loop
                                  ; End Main =====================================================
                                  
                                  ; Procedure ====================================================
@@ -1321,10 +1321,10 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega168" register use summary:
-x  :   8 y  :   3 z  :   2 r0 :   7 r1 :   1 r2 :   1 r3 :   1 r4 :   1 
+x  :   3 y  :   3 z  :   2 r0 :   7 r1 :   2 r2 :   1 r3 :   1 r4 :   1 
 r5 :   1 r6 :   1 r7 :   1 r8 :   1 r9 :   1 r10:   1 r11:   1 r12:   1 
-r13:   1 r14:   1 r15:   1 r16:  19 r17:   1 r18:   1 r19:   1 r20:   1 
-r21:   1 r22:   3 r23:   3 r24:   8 r25:   5 r26:   9 r27:   9 r28:   6 
+r13:   1 r14:   1 r15:   1 r16:  21 r17:   1 r18:   1 r19:   1 r20:   1 
+r21:   1 r22:   3 r23:   3 r24:   9 r25:   5 r26:   4 r27:   4 r28:   6 
 r29:   6 r30:   4 r31:   4 
 Registers used: 35 out of 35 (100.0%)
 
@@ -1335,25 +1335,25 @@ brcc  :   0 brcs  :   0 break :   0 breq  :   1 brge  :   0 brhc  :   0
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   1 brlt  :   0 brmi  :   0 
 brne  :   3 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
 brvs  :   0 bset  :   0 bst   :   0 call  :   0 cbi   :   0 cbr   :   0 
-clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  33 cls   :   0 
+clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  34 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   4 cpse  :   0 dec   :   1 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   1 jmp   :   0 
-ld    :   2 ldd   :   0 ldi   :  37 lds   :   0 lpm   :   1 lsl   :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   0 inc   :   2 jmp   :   0 
+ld    :   2 ldd   :   0 ldi   :  27 lds   :   0 lpm   :   1 lsl   :   0 
 lsr   :   0 mov   :   1 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   0 or    :   0 ori   :   0 out   :   2 pop   :   1 
-push  :   1 rcall :   0 ret   :   0 reti  :  28 rjmp  :   4 rol   :   0 
+neg   :   0 nop   :   3 or    :   0 ori   :   0 out   :   2 pop   :   1 
+push  :   1 rcall :   0 ret   :   0 reti  :  25 rjmp  :   7 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
-sei   :   0 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :  10 std   :   0 sts   :   0 
+sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   5 std   :   0 sts   :   7 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 19 out of 113 (16.8%)
+Instructions used: 22 out of 113 (19.5%)
 
 "ATmega168" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x00014c    270     10    280   16384   1.7%
+[.cseg] 0x000000 0x000156    280     10    290   16384   1.8%
 [.dseg] 0x000100 0x00010a      0     10     10    1024   1.0%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 

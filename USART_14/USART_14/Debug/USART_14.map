@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm Tue May 23 03:20:50 2023
+AVRASM ver. 2.2.8  C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm Mon Jun 05 21:51:26 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -694,17 +694,17 @@ DEF  RECV_COUNT   r25
 DEF  DATA         r24
 DEF  PREV_DATA    r23
 DSEG Array        00000100
-CSEG Reset        00000062
+CSEG Reset        00000063
+CSEG Recv_handler 0000003b
 CSEG Transm_ready 00000034
-CSEG Recv_handler 0000003c
+CSEG Transm_done  0000005a
 CSEG Recv_first   00000049
-CSEG Recv_out     00000057
-CSEG Find_and_send 0000004d
 CSEG Send         00000053
-CSEG Transm_done  00000058
-CSEG ArrayFLASH   0000005d
-CSEG RAM_Flush    00000066
-CSEG Flush        00000069
-CSEG Main         0000009a
-CSEG FLASH2RAM_loop@FLASH2RAM@2211 000000a0
-CSEG Loop         000000a5
+CSEG Find_and_send 0000004d
+CSEG Recv_out     00000059
+CSEG ArrayFLASH   0000005e
+CSEG RAM_Flush    00000067
+CSEG Flush        0000006a
+CSEG FLASH2RAM_loop@FLASH2RAM@2202 00000095
+CSEG Main         000000a7
+CSEG Loop         000000a7

@@ -109,11 +109,7 @@
 	LDI		R27, high(ADCH)
 	LD		r19, X
 
-	LDI		R26, low(ADCSRA)
-	LDI		R27, high(ADCSRA)
-	LD		r20, X
-	ORI		r20, (1 << ADSC)
-	ST		X, r20
+	OUTI	ADCSRA, (1 << ADEN) | (1 << ADIE) | (1 << ADSC) ; restart conversion
 
 	POP		R16
 	OUT		SREG, R16
@@ -178,20 +174,10 @@ Flush:		ST 	Z+,R16
 ; Internal Hardware Init  ======================================
 	;usart init
 Init:
-	LDI		R16, 0	; using AREF, ADLAR = 0, ADC0
-	LDI		R26, low(ADMUX)
-	LDI		R27, high(ADMUX)
-	ST		X, R16
-
-	LDI		R16, (1 << ADEN) | (1 << ADIE) ; enable ADC, enable interrupt
-	LDI		R26, low(ADCSRA)
-	LDI		R27, high(ADCSRA)
-	ST		X, R16
-	LDI		R26, low(ADCSRA)
-	LDI		R27, high(ADCSRA)
-	LD		r20, X
-	ORI		r20, (1 << ADSC)
-	ST		X, r20
+	
+	OUTI	ADMUX, (3 << REFS0)	
+	OUTI	ADCSRB, (1 << ACME)
+	OUTI	ADCSRA, (1 << ADEN) | (1 << ADIE) | (1 << ADSC) ; enable ADC and conversion, enable interrupt
 	
 	SEI
 ; End Internal Hardware Init ===================================

@@ -23,18 +23,18 @@
  </OUTPUT_FILES>
  <LABELS>
   <Array><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>36</LINE></Array>
-  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>173</LINE></Reset>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>168</LINE></Reset>
+  <Recv_handler><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>108</LINE></Recv_handler>
   <Transm_ready><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>98</LINE></Transm_ready>
-  <Recv_handler><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>111</LINE></Recv_handler>
-  <Recv_first><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>134</LINE></Recv_first>
-  <Recv_out><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>159</LINE></Recv_out>
-  <Find_and_send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>141</LINE></Find_and_send>
-  <Send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>153</LINE></Send>
-  <Transm_done><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>162</LINE></Transm_done>
-  <ArrayFLASH><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>171</LINE></ArrayFLASH>
-  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>181</LINE></RAM_Flush>
-  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>184</LINE></Flush>
-  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>256</LINE></Main>
-  <Loop><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>265</LINE></Loop>
+  <Transm_done><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>159</LINE></Transm_done>
+  <Recv_first><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>132</LINE></Recv_first>
+  <Send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>150</LINE></Send>
+  <Find_and_send><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>139</LINE></Find_and_send>
+  <Recv_out><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>156</LINE></Recv_out>
+  <ArrayFLASH><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>166</LINE></ArrayFLASH>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>176</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>180</LINE></Flush>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>252</LINE></Main>
+  <Loop><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\USART_14\USART_14\main.asm</FILE><LINE>255</LINE></Loop>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -1,10 +1,10 @@
 
-AVRASM ver. 2.2.8  c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm Mon May 22 19:25:49 2023
+AVRASM ver. 2.2.8  C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm Mon Jun 05 17:04:53 2023
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
-c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
+C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
-c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
+C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc'
                                  
                                  .include "m168def.inc"   ; ATMega168
                                  
@@ -1067,7 +1067,7 @@ c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C
                                  ; Interrupts ==============================================
                                           .CSEG
                                           .ORG $000      ; (RESET) 
-000000 c044                               RJMP   Reset
+000000 c045                               RJMP   Reset
                                           .ORG $002
 000002 9518                               RETI             ; (INT0) External Interrupt Request 0
                                           .ORG $004
@@ -1124,101 +1124,100 @@ c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C
                                  
                                  ; Interrupts handlers
                                  	ADC_conversion_handler:
-000034 b70f                      	in		R16, SREG
-000035 930f                      	push	R16
+000034 930f                      	PUSH	R16
+000035 b70f                      	IN		R16, SREG
+000036 930f                      	PUSH	R16
                                  
-000036 e7a8                      	ldi		R26, low(ADCL)
-000037 e0b0                      	ldi		R27, high(ADCL)
-000038 912c                      	ld		R18, X
-000039 e7a9                      	ldi		R26, low(ADCH)
-00003a e0b0                      	ldi		R27, high(ADCH)
-00003b 913c                      	ld		r19, X
+000037 e7a8                      	LDI		R26, low(ADCL)
+000038 e0b0                      	LDI		R27, high(ADCL)
+000039 912c                      	LD		R18, X
+00003a e7a9                      	LDI		R26, low(ADCH)
+00003b e0b0                      	LDI		R27, high(ADCH)
+00003c 913c                      	LD		r19, X
                                  
-00003c e7aa                      	LDI		R26, low(ADCSRA)
-00003d e0b0                      	LDI		R27, high(ADCSRA)
-00003e 914c                      	LD		r20, X
-00003f 6440                      	ORI		r20, (1 << ADSC)
-000040 934c                      	ST		X, r20
-000041 9508                      	RET
+00003d 930f
+00003e ec08
+00003f 9300 007a
+000041 910f                      	OUTI	ADCSRA, (1 << ADEN) | (1 << ADIE) | (1 << ADSC) ; restart conversion
                                  
-000042 910f                      	pop		R16
-000043 bf0f                      	out		SREG, R16
-000044 9518                      	reti
+000042 910f                      	POP		R16
+000043 bf0f                      	OUT		SREG, R16
+000044 910f                      	POP		R16
+000045 9518                      	RETI
                                  
                                  ; End Interrupts ==========================================
                                  
                                  
                                  Reset:
-000045 ef0f                      		LDI R16,Low(RAMEND)		; Инициализация стека
-000046 bf0d                      	  	OUT SPL,R16			
+000046 ef0f                      		LDI R16,Low(RAMEND)		; Инициализация стека
+000047 bf0d                      	  	OUT SPL,R16			
                                   
-000047 e004                      	  	LDI R16,High(RAMEND)
-000048 bf0e                      	  	OUT SPH,R16
+000048 e004                      	  	LDI R16,High(RAMEND)
+000049 bf0e                      	  	OUT SPH,R16
                                   
                                  ; Start coreinit.inc
-000049 e0e0                      RAM_Flush:	LDI	ZL,Low(SRAM_START)	
-00004a e0f1                      		LDI	ZH,High(SRAM_START)
-00004b 2700                      		CLR	R16			
-00004c 9301                      Flush:		ST 	Z+,R16			
-00004d 30f4                      		CPI	ZH,High(RAMEND)		
-00004e f7e9                      		BRNE	Flush			
+00004a e0e0                      RAM_Flush:	LDI	ZL,Low(SRAM_START)	
+00004b e0f1                      		LDI	ZH,High(SRAM_START)
+00004c 2700                      		CLR	R16			
+00004d 9301                      Flush:		ST 	Z+,R16			
+00004e 30f4                      		CPI	ZH,High(RAMEND)		
+00004f f7e9                      		BRNE	Flush			
                                   
-00004f 3fef                      		CPI	ZL,Low(RAMEND)		
-000050 f7d9                      		BRNE	Flush
+000050 3fef                      		CPI	ZL,Low(RAMEND)		
+000051 f7d9                      		BRNE	Flush
                                   
-000051 27ee                      		CLR	ZL			
-000052 27ff                      		CLR	ZH
-000053 2400                      		CLR	R0
-000054 2411                      		CLR	R1
-000055 2422                      		CLR	R2
-000056 2433                      		CLR	R3
-000057 2444                      		CLR	R4
-000058 2455                      		CLR	R5
-000059 2466                      		CLR	R6
-00005a 2477                      		CLR	R7
-00005b 2488                      		CLR	R8
-00005c 2499                      		CLR	R9
-00005d 24aa                      		CLR	R10
-00005e 24bb                      		CLR	R11
-00005f 24cc                      		CLR	R12
-000060 24dd                      		CLR	R13
-000061 24ee                      		CLR	R14
-000062 24ff                      		CLR	R15
-000063 2700                      		CLR	R16
-000064 2711                      		CLR	R17
-000065 2722                      		CLR	R18
-000066 2733                      		CLR	R19
-000067 2744                      		CLR	R20
-000068 2755                      		CLR	R21
-000069 2766                      		CLR	R22
-00006a 2777                      		CLR	R23
-00006b 2788                      		CLR	R24
-00006c 2799                      		CLR	R25
-00006d 27aa                      		CLR	R26
-00006e 27bb                      		CLR	R27
-00006f 27cc                      		CLR	R28
-000070 27dd                      		CLR	R29
+000052 27ee                      		CLR	ZL			
+000053 27ff                      		CLR	ZH
+000054 2400                      		CLR	R0
+000055 2411                      		CLR	R1
+000056 2422                      		CLR	R2
+000057 2433                      		CLR	R3
+000058 2444                      		CLR	R4
+000059 2455                      		CLR	R5
+00005a 2466                      		CLR	R6
+00005b 2477                      		CLR	R7
+00005c 2488                      		CLR	R8
+00005d 2499                      		CLR	R9
+00005e 24aa                      		CLR	R10
+00005f 24bb                      		CLR	R11
+000060 24cc                      		CLR	R12
+000061 24dd                      		CLR	R13
+000062 24ee                      		CLR	R14
+000063 24ff                      		CLR	R15
+000064 2700                      		CLR	R16
+000065 2711                      		CLR	R17
+000066 2722                      		CLR	R18
+000067 2733                      		CLR	R19
+000068 2744                      		CLR	R20
+000069 2755                      		CLR	R21
+00006a 2766                      		CLR	R22
+00006b 2777                      		CLR	R23
+00006c 2788                      		CLR	R24
+00006d 2799                      		CLR	R25
+00006e 27aa                      		CLR	R26
+00006f 27bb                      		CLR	R27
+000070 27cc                      		CLR	R28
+000071 27dd                      		CLR	R29
                                  ; End coreinit.inc
                                  
                                  ; Internal Hardware Init  ======================================
                                  	;usart init
                                  Init:
-000071 e000                      	LDI		R16, 0	; using AREF, ADLAR = 0, ADC0
-000072 e7ac                      	LDI		R26, low(ADMUX)
-000073 e0b0                      	LDI		R27, high(ADMUX)
-000074 930c                      	ST		X, R16
-                                 
-000075 e808                      	LDI		R16, (1 << ADEN) | (1 << ADIE) ; enable ADC, enable interrupt
-000076 e7aa                      	LDI		R26, low(ADCSRA)
-000077 e0b0                      	LDI		R27, high(ADCSRA)
-000078 930c                      	ST		X, R16
-000079 e7aa                      	LDI		R26, low(ADCSRA)
-00007a e0b0                      	LDI		R27, high(ADCSRA)
-00007b 914c                      	LD		r20, X
-00007c 6440                      	ORI		r20, (1 << ADSC)
-00007d 934c                      	ST		X, r20
                                  	
-00007e 9478                      	SEI
+000072 930f
+000073 ec00
+000074 9300 007c
+000076 910f                      	OUTI	ADMUX, (3 << REFS0)	
+000077 930f
+000078 e400
+000079 9300 007b
+00007b 910f                      	OUTI	ADCSRB, (1 << ACME)
+00007c 930f
+00007d ec08
+00007e 9300 007a
+000080 910f                      	OUTI	ADCSRA, (1 << ADEN) | (1 << ADIE) | (1 << ADSC) ; enable ADC and conversion, enable interrupt
+                                 	
+000081 9478                      	SEI
                                  ; End Internal Hardware Init ===================================
                                   
                                  ; External Hardware Init  ======================================
@@ -1233,18 +1232,18 @@ c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm(1): Including file 'C
                                  ; Main =========================================================
                                  
                                  Main:
-00007f 0000                      		NOP
-000080 940c 007f                 		JMP	Main
+000082 0000                      		NOP
+000083 940c 0082                 		JMP	Main
                                  ; End Main =====================================================
                                  
                                  ; Procedure ====================================================
                                  Init_conversion:
-000082 e7aa                      	LDI		R26, low(ADCSRA)
-000083 e0b0                      	LDI		R27, high(ADCSRA)
-000084 914c                      	LD		r20, X
-000085 6440                      	ORI		r20, (1 << ADSC)
-000086 934c                      	ST		X, r20
-000087 9508                      	RET
+000085 e7aa                      	LDI		R26, low(ADCSRA)
+000086 e0b0                      	LDI		R27, high(ADCSRA)
+000087 914c                      	LD		r20, X
+000088 6440                      	ORI		r20, (1 << ADSC)
+000089 934c                      	ST		X, r20
+00008a 9508                      	RET
 
 
 RESOURCE USE INFORMATION
@@ -1262,10 +1261,10 @@ counted separately from r26..r31 here.
 .dseg memory usage only counts static data declared with .byte
 
 "ATmega168" register use summary:
-x  :  10 y  :   0 z  :   1 r0 :   1 r1 :   1 r2 :   1 r3 :   1 r4 :   1 
+x  :   4 y  :   0 z  :   1 r0 :   1 r1 :   1 r2 :   1 r3 :   1 r4 :   1 
 r5 :   1 r6 :   1 r7 :   1 r8 :   1 r9 :   1 r10:   1 r11:   1 r12:   1 
-r13:   1 r14:   1 r15:   1 r16:  15 r17:   1 r18:   2 r19:   2 r20:  10 
-r21:   1 r22:   1 r23:   1 r24:   1 r25:   1 r26:   8 r27:   8 r28:   1 
+r13:   1 r14:   1 r15:   1 r16:  29 r17:   1 r18:   2 r19:   2 r20:   4 
+r21:   1 r22:   1 r23:   1 r24:   1 r25:   1 r26:   4 r27:   4 r28:   1 
 r29:   1 r30:   3 r31:   3 
 Registers used: 34 out of 35 (97.1%)
 
@@ -1280,21 +1279,21 @@ clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :  33 cls   :   0
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
 cpi   :   2 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
 fmulsu:   0 icall :   0 ijmp  :   0 in    :   1 inc   :   0 jmp   :   1 
-ld    :   5 ldd   :   0 ldi   :  20 lds   :   0 lpm   :   0 lsl   :   0 
+ld    :   3 ldd   :   0 ldi   :  14 lds   :   0 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   0 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   1 or    :   0 ori   :   3 out   :   3 pop   :   1 
-push  :   1 rcall :   0 ret   :   2 reti  :  25 rjmp  :   2 rol   :   0 
+neg   :   0 nop   :   1 or    :   0 ori   :   1 out   :   3 pop   :   6 
+push  :   6 rcall :   0 ret   :   1 reti  :  25 rjmp  :   2 rol   :   0 
 ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
 sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   6 std   :   0 sts   :   0 
+sez   :   0 sleep :   0 spm   :   0 st    :   2 std   :   0 sts   :   4 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
-Instructions used: 17 out of 113 (15.0%)
+Instructions used: 18 out of 113 (15.9%)
 
 "ATmega168" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x000110    220      0    220   16384   1.3%
+[.cseg] 0x000000 0x000116    226      0    226   16384   1.4%
 [.dseg] 0x000100 0x000100      0      0      0    1024   0.0%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 

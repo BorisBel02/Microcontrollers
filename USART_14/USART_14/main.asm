@@ -75,11 +75,11 @@
          .ORG $022
          RETI             ; SPI Serial Transfer Complete
          .ORG $024
-         RETI             ; USART Rx Complete
+         RJMP Recv_handler             ; USART Rx Complete
          .ORG $026
-         RETI             ; USART, Data Register Empty
+         RJMP Transm_ready             ; USART, Data Register Empty
          .ORG $028
-         RETI             ; USART Tx Complete
+         RJMP Transm_done              ; USART Tx Complete
 		 .ORG $02A
 		 RETI			  ; ADC Conversion Complete
 		 .ORG $02C
@@ -100,15 +100,13 @@ Transm_ready:
 	LDI XH, high(UDR0)
 	ST X, DATA
 
-	LDI R16, (1 << TXEN0) | (1 << TXCIE0)
-	LDI XL, low(UCSR0B)
-	LDI XH, high(UCSR0B)
-	ST X, R16
+	OUTI UCSR0B, (1 << TXEN0) | (1 << TXCIE0)
 
 	RETI
 
 
 Recv_handler:
+	INC R1
 	LDI XL, low(UDR0)
 	LDI XH, high(UDR0)
 	LD DATA, X
@@ -128,7 +126,7 @@ Recv_handler:
 
 	LDI RECV_COUNT, 0
 
-	RJMP Recv_out
+	RJMP Send
 
 
 Recv_first:
@@ -139,7 +137,6 @@ Recv_first:
 	RJMP Recv_out
 
 Find_and_send:
-
 	LDI YL, low(Array)
 	LDI YH, high(Array)
 
@@ -148,22 +145,20 @@ Find_and_send:
 
 	LD DATA, Y
 
-	LDI RECV_COUNT, 0
+	CLR RECV_COUNT
 
 Send:
-	LDI R16, (1 << TXEN0) | (1 << UDRIE0)
-	LDI XL, low(UCSR0B)
-	LDI XH, high(UCSR0B)
-	ST X, R16
-
+	LDI XL, low(UDR0)
+	LDI XH, high(UDR0)
+	ST X, DATA
+	OUTI UCSR0B, (1 << TXEN0) | (1 << UDRIE0)
+	
 Recv_out:
-RETI
+	RETI
 
 Transm_done:
-	LDI R16, (1 << RXEN0) | (1 << RXCIE0)
-	LDI XL, low(UCSR0B)
-	LDI XH, high(UCSR0B)
-	ST X, R16
+	OUTI UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+	
 	RETI
 
 ; End Interrupts ==========================================
@@ -178,65 +173,66 @@ Reset:
 	  	OUT SPH,R16
  
 ; Start coreinit.inc
-RAM_Flush:	LDI	ZL,Low(SRAM_START)	; Адрес начала ОЗУ в индекс
-		LDI	ZH,High(SRAM_START)
-		CLR	R16			; Очищаем R16
-Flush:		ST 	Z+,R16			; Сохраняем 0 в ячейку памяти
-		CPI	ZH,High(RAMEND)		; Достигли конца оперативки?
-		BRNE	Flush			; Нет? Крутимся дальше!
+RAM_Flush:	
+	LDI	ZL,Low(SRAM_START)	
+	LDI	ZH,High(SRAM_START)
+	CLR	R16			; Очищаем R16
+Flush:
+	ST 	Z+,R16			; Сохраняем 0 в ячейку памяти
+	CPI	ZH,High(RAMEND)		
+	BRNE	Flush			
  
-		CPI	ZL,Low(RAMEND)		; А младший байт достиг конца?
-		BRNE	Flush
+	CPI	ZL,Low(RAMEND)		
+	BRNE	Flush
  
-		CLR	ZL			; Очищаем индекс
-		CLR	ZH
-		CLR	R0
-		CLR	R1
-		CLR	R2
-		CLR	R3
-		CLR	R4
-		CLR	R5
-		CLR	R6
-		CLR	R7
-		CLR	R8
-		CLR	R9
-		CLR	R10
-		CLR	R11
-		CLR	R12
-		CLR	R13
-		CLR	R14
-		CLR	R15
-		CLR	R16
-		CLR	R17
-		CLR	R18
-		CLR	R19
-		CLR	R20
-		CLR	R21
-		CLR	R22
-		CLR	R23
-		CLR	R24
-		CLR	R25
-		CLR	R26
-		CLR	R27
-		CLR	R28
-		CLR	R29
+ 	CLR	ZL			
+	CLR	ZH
+	CLR	R0
+	CLR	R1
+	CLR	R2
+	CLR	R3
+	CLR	R4
+	CLR	R5
+	CLR	R6
+	CLR	R7
+	CLR	R8
+	CLR	R9
+	CLR	R10
+	CLR	R11
+	CLR	R12
+	CLR	R13
+	CLR	R14
+	CLR	R15
+	CLR	R16
+	CLR	R17
+	CLR	R18
+	CLR	R19
+	CLR	R20
+	CLR	R21
+	CLR	R22
+	CLR	R23
+	CLR	R24
+	CLR	R25
+	CLR	R26
+	CLR	R27
+	CLR	R28
+	CLR	R29
 ; End coreinit.inc
 
 ; Internal Hardware Init  ======================================
-LDI R16, (1 << UCSZ01) | (1 << UCSZ00)
-LDI XL, low(UCSR0C)
-LDI XH, high(UCSR0C)
-ST X, R16
+	LDI R22, 10
+	LDI ZL, low(ArrayFLASH * 2)
+	LDI ZH, high(ArrayFLASH * 2)
+	LDI YL, low(Array)
+	LDI YH, high(Array)
 
-LDI R16, 103
-LDI XL, low(UBRR0L)
-LDI XH, high(UBRR0L)
-ST X, R16
+	FLASH2RAM R22
 
-LDI R16, (1 << RXEN0) | (1 << RXCIE0)
-LDI XL, low(UCSR0B)
-LDI XH, high(UCSR0B)
-ST X, R16
+OUTI	UCSR0A, 0
+OUTI	UCSR0C, (3 << UCSZ00); 8 bit packet
+OUTI	UBRR0L, 103
+OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+
 ; End Internal Hardware Init ===================================
  
 ; External Hardware Init  ======================================
@@ -250,20 +246,17 @@ ST X, R16
 
 
 
-
+SEI
 
 ; Main =========================================================
 Main:
-		LDI R22, 10
-		LDI ZL, low(ArrayFLASH * 2)
-		LDI ZH, high(ArrayFLASH * 2)
-		LDI YL, low(Array)
-		LDI YH, high(Array)
-		FLASH2RAM R22
-
+	
 		
-		Loop:
-		RJMP	Loop
+	Loop:
+	NOP
+	NOP
+	NOP
+	RJMP	Loop
 ; End Main =====================================================
 
 ; Procedure ====================================================

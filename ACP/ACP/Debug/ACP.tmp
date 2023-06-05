@@ -1,18 +1,18 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega168"</DEVICE>
- <WORKING_DIR>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\Debug</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
   <DIR></DIR>
  </INCLUDE_PATH>
- <SOURCE_FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</SOURCE_FILE>
+ <SOURCE_FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</SOURCE_FILE>
  <INCLUDED_FILES>
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\Debug\ACP.obj</FILE>
+  <FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\Debug\ACP.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>ACP.hex</FILE>
@@ -22,12 +22,12 @@
   <FILE>ACP.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <Reset><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>125</LINE></Reset>
-  <ADC_conversion_handler><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>100</LINE></ADC_conversion_handler>
-  <RAM_Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>133</LINE></RAM_Flush>
-  <Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>136</LINE></Flush>
-  <Init><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>179</LINE></Init>
-  <Main><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>209</LINE></Main>
-  <Init_conversion><FILE>c:\users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>215</LINE></Init_conversion>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>122</LINE></Reset>
+  <ADC_conversion_handler><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>100</LINE></ADC_conversion_handler>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>130</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>133</LINE></Flush>
+  <Init><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>176</LINE></Init>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>196</LINE></Main>
+  <Init_conversion><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\ACP\ACP\main.asm</FILE><LINE>202</LINE></Init_conversion>
  </LABELS>
 </ASSEMBLER_INFO>
