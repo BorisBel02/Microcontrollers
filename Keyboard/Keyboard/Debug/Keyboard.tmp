@@ -1,0 +1,39 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\Debug\Keyboard.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Keyboard.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Keyboard.map</FILE>
+  <FILE>Keyboard.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <SYMBOLS_ASCII><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>38</LINE></SYMBOLS_ASCII>
+  <SYM><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>39</LINE></SYM>
+  <Reset><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>109</LINE></Reset>
+  <SYMBOLS_ASCII_FLASH><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>107</LINE></SYMBOLS_ASCII_FLASH>
+  <RAM_Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>117</LINE></RAM_Flush>
+  <Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>120</LINE></Flush>
+  <Init><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>163</LINE></Init>
+  <Main><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>187</LINE></Main>
+  <Poll><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>193</LINE></Poll>
+  <Row_cycle><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>198</LINE></Row_cycle>
+  <Col_cycle><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>203</LINE></Col_cycle>
+  <Match><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>228</LINE></Match>
+  <Poll_stop><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Keyboard\Keyboard\main.asm</FILE><LINE>223</LINE></Poll_stop>
+ </LABELS>
+</ASSEMBLER_INFO>
