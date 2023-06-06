@@ -1,0 +1,21 @@
+<circuit version="1.0.0-SR0" rev="1320" stepSize="1000000000" stepsPS="1000" NLsteps="100000" reaStep="1000000" animate="0" >
+
+<item itemtype="MCU" CircId="mega168-4" mainComp="false" Show_id="true" Show_Val="false" Pos="700,628" rotation="90" hflip="1" vflip="1" label="mega168-4" idLabPos="0,-20" labelrot="0" valLabPos="-16,20" valLabRot="0" varList="R18/0x0012/u8,R19/0x0013/u8,PORTC/0x0028/u8,PINC/0x0026/u8,R00/0x0000/u8,R01/0x0001/u8,R20/0x0014/u8,R10/0x000A/u8" Frequency="16 MHz" Program="../../../Documents/Atmel Studio/7.0/Keyboard/Keyboard/Debug/Keyboard.hex" Auto_Load="false" Rst_enabled="false" Ext_Osc="false" Wdt_enabled="false" />
+
+<item itemtype="KeyPad" CircId="KeyPad-5" mainComp="false" Show_id="false" Show_Val="false" Pos="520,540" rotation="0" hflip="1" vflip="1" label="KeyPad-5" idLabPos="-8,-16" labelrot="0" valLabPos="-16,20" valLabRot="0" Rows="4 _Кнопок" Cols="3 _Кнопок" Key_Labels="123456789*0#" />
+
+<item itemtype="Connector" uid="Connector-42" startpinid="mega168-4-PORTD0" endpinid="KeyPad-5-Pin0" pointList="684,620,684,548,568,548" />
+
+<item itemtype="Connector" uid="Connector-43" startpinid="mega168-4-PORTD1" endpinid="KeyPad-5-Pin1" pointList="676,620,676,564,568,564" />
+
+<item itemtype="Connector" uid="Connector-44" startpinid="mega168-4-PORTD2" endpinid="KeyPad-5-Pin2" pointList="668,620,668,580,568,580" />
+
+<item itemtype="Connector" uid="Connector-45" startpinid="mega168-4-PORTD3" endpinid="KeyPad-5-Pin3" pointList="660,620,660,596,568,596" />
+
+<item itemtype="Connector" uid="Connector-48" startpinid="KeyPad-5-Pin5" endpinid="mega168-4-PORTC1" pointList="536,612,536,692,660,692,660,668" />
+
+<item itemtype="Connector" uid="Connector-49" startpinid="KeyPad-5-Pin6" endpinid="mega168-4-PORTC2" pointList="552,612,552,684,668,684,668,668" />
+
+<item itemtype="Connector" uid="Connector-50" startpinid="KeyPad-5-Pin4" endpinid="mega168-4-PORTC0" pointList="520,612,520,700,652,700,652,668" />
+
+</circuit>

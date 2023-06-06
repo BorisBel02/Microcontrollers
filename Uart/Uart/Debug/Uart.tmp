@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\Debug\Uart.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Uart.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Uart.map</FILE>
+  <FILE>Uart.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <Array><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>36</LINE></Array>
+  <Reset><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>104</LINE></Reset>
+  <ArrayFLASH><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>102</LINE></ArrayFLASH>
+  <RAM_Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>112</LINE></RAM_Flush>
+  <Flush><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>116</LINE></Flush>
+  <uart_init><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>165</LINE></uart_init>
+  <Main><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>188</LINE></Main>
+  <Loop><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>197</LINE></Loop>
+  <uart_snt><FILE>c:\users\borik\Documents\Atmel Studio\7.0\Uart\Uart\main.asm</FILE><LINE>204</LINE></uart_snt>
+ </LABELS>
+</ASSEMBLER_INFO>

@@ -1,4 +1,4 @@
-	.include "m168def.inc"   ; Используем ATMega168
+.include "m168def.inc"   ; Используем ATMega168
 .def RECV_COUNT = R25
 .def DATA = R24
 .def PREV_DATA = R23
@@ -75,11 +75,11 @@
          .ORG $022
          RETI             ; SPI Serial Transfer Complete
          .ORG $024
-         RJMP Recv_handler             ; USART Rx Complete
+         RETI             ; USART Rx Complete
          .ORG $026
-         RJMP Transm_ready             ; USART, Data Register Empty
+         RETI             ; USART, Data Register Empty
          .ORG $028
-         RJMP Transm_done              ; USART Tx Complete
+         RETI              ; USART Tx Complete
 		 .ORG $02A
 		 RETI			  ; ADC Conversion Complete
 		 .ORG $02C
@@ -95,70 +95,7 @@
 
 ; Interrupts ==============================================
 ; Interrupts handlers
-Transm_ready:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	ST X, DATA
 
-	OUTI UCSR0B, (1 << TXEN0) | (1 << TXCIE0)
-
-	RETI
-
-
-Recv_handler:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	LD DATA, X
-
-	INC RECV_COUNT
-
-	CPI RECV_COUNT, 1
-	BREQ Recv_first
-;RECV SECOND
-	LDI YL, low(Array)
-	LDI YH, high(Array)
-
-	ADD YL, PREV_DATA
-	ADC YH, R0
-	
-	ST Y, DATA ; put new value in the array
-
-	LDI RECV_COUNT, 0
-
-	RJMP Send
-
-
-Recv_first:
-	CPI DATA, 9
-	BRLO Find_and_send
-	
-	MOV PREV_DATA, DATA
-	RJMP Recv_out
-
-Find_and_send:
-	LDI YL, low(Array)
-	LDI YH, high(Array)
-
-	ADD YL, DATA
-	ADC YH, R0
-
-	LD DATA, Y
-
-	CLR RECV_COUNT
-
-Send:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	ST X, DATA
-	OUTI UCSR0B, (1 << TXEN0) | (1 << UDRIE0)
-	
-Recv_out:
-	RETI
-
-Transm_done:
-	OUTI UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
-	
-	RETI
 
 ; End Interrupts ==========================================
 
@@ -219,19 +156,20 @@ Flush:
 ; End coreinit.inc
 
 ; Internal Hardware Init  ======================================
-	LDI R22, 10
-	LDI ZL, low(ArrayFLASH * 2)
-	LDI ZH, high(ArrayFLASH * 2)
-	LDI YL, low(Array)
-	LDI YH, high(Array)
 
-	FLASH2RAM R22
+	.equ 	XTAL = 8000000 	
+	.equ 	baudrate = 9600  
+	.equ 	bauddivider = XTAL/(16*baudrate)-1
+ 
+ 
+uart_init:	
+	OUTI 	UBRR0L, low(bauddivider)
+ 
 
-OUTI	UCSR0A, 0
-OUTI	UCSR0C, (3 << UCSZ00); 8 bit packet
-OUTI	UBRR0L, 103
-OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+	OUTI 	UCSR0A, 0
 
+	OUTI 	UCSR0B,  (1<<RXEN0)|(1<<TXEN0)|(0<<RXCIE0)|(0<<TXCIE0)|(0<<UDRIE0)
+	OUTI 	UCSR0C, (1<<UMSEL0)|(1<<UCSZ00)|(1<<UCSZ01)
 ; End Internal Hardware Init ===================================
  
 ; External Hardware Init  ======================================
@@ -245,14 +183,32 @@ OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
 
 
 
-SEI
 
 ; Main =========================================================
 Main:
-	NOP
-	RJMP	Main
+	LDI R22, 10
+	LDI ZL, low(ArrayFLASH * 2)
+	LDI ZH, high(ArrayFLASH * 2)
+	LDI YL, low(Array)
+	LDI YH, high(Array)
+
+	FLASH2RAM R22
+		
+	Loop:
+	RJMP uart_snt
+	RJMP	Loop
 ; End Main =====================================================
 
 ; Procedure ====================================================
 
+uart_snt:
+		LDI XL, low(UCSR0A)
+		LDI XH, HIGH(UCSR0A)
+		LD 	R16, X
+		SBRS R16, UDRE0
+		RJMP	uart_snt 	; ждем готовности - флага UDRE
+		
+
+		OUTI	UDR0, (1 << 2)	; шлем байт
+		RET	
 ; End Procedure ================================================

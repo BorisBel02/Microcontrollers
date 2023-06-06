@@ -1,0 +1,35 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\Debug\Master.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Master.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Master.map</FILE>
+  <FILE>Master.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <SYMBOLS_ASCII><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>37</LINE></SYMBOLS_ASCII>
+  <SYM><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>38</LINE></SYM>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>129</LINE></Reset>
+  <SPI_TX_Complete><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>118</LINE></SPI_TX_Complete>
+  <Rx_handler><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>102</LINE></Rx_handler>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>137</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>140</LINE></Flush>
+  <Init><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>183</LINE></Init>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Master\Master\main.asm</FILE><LINE>202</LINE></Main>
+ </LABELS>
+</ASSEMBLER_INFO>

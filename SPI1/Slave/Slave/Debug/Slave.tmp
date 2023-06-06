@@ -1,0 +1,36 @@
+<ASSEMBLER_INFO>
+ <VERSION>2.2.8</VERSION>
+ <DEVICE>"ATmega168"</DEVICE>
+ <WORKING_DIR>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\Debug</WORKING_DIR>
+ <INCLUDE_PATH>
+  <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
+  <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
+  <DIR></DIR>
+ </INCLUDE_PATH>
+ <SOURCE_FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</SOURCE_FILE>
+ <INCLUDED_FILES>
+  <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m168def.inc</FILE>
+ </INCLUDED_FILES>
+ <OBJECT_FILES>
+  <FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\Debug\Slave.obj</FILE>
+ </OBJECT_FILES>
+ <HEX_FILES>
+  <FILE>Slave.hex</FILE>
+ </HEX_FILES>
+ <OUTPUT_FILES>
+  <FILE>Slave.map</FILE>
+  <FILE>Slave.lss</FILE>
+ </OUTPUT_FILES>
+ <LABELS>
+  <SYMBOLS_ASCII><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>37</LINE></SYMBOLS_ASCII>
+  <SYM><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>38</LINE></SYM>
+  <Reset><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>124</LINE></Reset>
+  <SPI_TX_Complete><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>102</LINE></SPI_TX_Complete>
+  <Data_register_empty><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>113</LINE></Data_register_empty>
+  <TX_Complete><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>108</LINE></TX_Complete>
+  <RAM_Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>132</LINE></RAM_Flush>
+  <Flush><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>135</LINE></Flush>
+  <Init><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>178</LINE></Init>
+  <Main><FILE>C:\Users\borik\Documents\Atmel Studio\7.0\SPI1\Slave\Slave\main.asm</FILE><LINE>195</LINE></Main>
+ </LABELS>
+</ASSEMBLER_INFO>

@@ -1,15 +1,16 @@
-	.include "m168def.inc"   ; Используем ATMega168
-.def RECV_COUNT = R25
-.def DATA = R24
-.def PREV_DATA = R23
+.include "m168def.inc"   ; ATMega168
+ 
+ .DEF DATA = R24
 ;= Start macro.inc ========================================
-   	.macro    OUTI          	
+   	.macro    OUTI 
+		PUSH R16         	
       	LDI    R16,@1
    	.if @0 < 0x40
       	OUT    @0,R16       
    	.else
       	STS      @0,R16
    	.endif
+		POP R16
    	.endm
  
    	.macro    UOUT        
@@ -25,7 +26,7 @@
 		FLASH2RAM_loop:
 			LPM R0, Z+
 			ST Y+, R0
-			DEC @0
+			DEC @0 ; @0 - size in bytes
 			BRNE FLASH2RAM_loop
 		POP R0
 	.endm
@@ -33,10 +34,13 @@
 
 ; RAM ===================================================
 		.DSEG
-		Array: .byte 10
+		SYMBOLS_ASCII: .BYTE 12
+		SYM: .BYTE 1
 ; END RAM ===============================================
 
 ; FLASH ======================================================
+	
+; Interrupts ==============================================
          .CSEG
          .ORG $000      ; (RESET) 
          RJMP   Reset
@@ -57,7 +61,7 @@
          .ORG $010
          RETI             ; Timer/Counter2 Compare Match A
          .ORG $012
-         RETI             ; Timer/Counter2 Overflow
+         RETI       ; Timer/Counter2 Overflow
          .ORG $014
          RETI             ; Timer/Counter1 Capture Event
          .ORG $016
@@ -71,15 +75,15 @@
          .ORG $01E
          RETI             ; TimerCounter0 Compare Match B
          .ORG $020
-         RETI             ;  Timer/Couner0 Overflow
+         RETI             ;  Timer/Counter0 Overflow
          .ORG $022
-         RETI             ; SPI Serial Transfer Complete
+         RJMP SPI_TX_Complete       ; SPI Serial Transfer Complete
          .ORG $024
-         RJMP Recv_handler             ; USART Rx Complete
+        RJMP Rx_handler             ; USART Rx Complete
          .ORG $026
-         RJMP Transm_ready             ; USART, Data Register Empty
+         RETI             ; USART, Data Register Empty
          .ORG $028
-         RJMP Transm_done              ; USART Tx Complete
+         RETI             ; USART Tx Complete
 		 .ORG $02A
 		 RETI			  ; ADC Conversion Complete
 		 .ORG $02C
@@ -91,166 +95,112 @@
 		 .ORG $032
 		 RETI			  ; Store Program Memory Read
  
-	 .ORG   INT_VECTORS_SIZE      	; Конец таблицы прерываний
+	 .ORG   INT_VECTORS_SIZE      	
 
-; Interrupts ==============================================
+
 ; Interrupts handlers
-Transm_ready:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	ST X, DATA
+Rx_handler:
+	LDI	XL, LOW(UDR0)
+	LDI XH, HIGH(UDR0)
 
-	OUTI UCSR0B, (1 << TXEN0) | (1 << TXCIE0)
+	LD	DATA, X
+	
+	IN R16, PORTB
+	ANDI R16, ~(1 << PORTB2)
+	OUT PORTB, R16
 
+	OUT SPDR, DATA
+
+	OUTI UCSR0B, 0
 	RETI
 
 
-Recv_handler:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	LD DATA, X
+SPI_TX_Complete:
+	IN R16, PORTB
+	ORI R16, (1 << PORTB2)
+	OUT PORTB, R16
 
-	INC RECV_COUNT
-
-	CPI RECV_COUNT, 1
-	BREQ Recv_first
-;RECV SECOND
-	LDI YL, low(Array)
-	LDI YH, high(Array)
-
-	ADD YL, PREV_DATA
-	ADC YH, R0
-	
-	ST Y, DATA ; put new value in the array
-
-	LDI RECV_COUNT, 0
-
-	RJMP Send
-
-
-Recv_first:
-	CPI DATA, 9
-	BRLO Find_and_send
-	
-	MOV PREV_DATA, DATA
-	RJMP Recv_out
-
-Find_and_send:
-	LDI YL, low(Array)
-	LDI YH, high(Array)
-
-	ADD YL, DATA
-	ADC YH, R0
-
-	LD DATA, Y
-
-	CLR RECV_COUNT
-
-Send:
-	LDI XL, low(UDR0)
-	LDI XH, high(UDR0)
-	ST X, DATA
-	OUTI UCSR0B, (1 << TXEN0) | (1 << UDRIE0)
-	
-Recv_out:
-	RETI
-
-Transm_done:
 	OUTI UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
-	
 	RETI
 
 ; End Interrupts ==========================================
 
-ArrayFLASH: .DB 12, 13, 4, 5, 32, 7, 90, 134, 2, 87
 
-Reset:   	
-		LDI R16,Low(RAMEND)		; Инициализация стека
+Reset:
+		LDI R16,Low(RAMEND)
 	  	OUT SPL,R16			
  
 	  	LDI R16,High(RAMEND)
 	  	OUT SPH,R16
  
 ; Start coreinit.inc
-RAM_Flush:	
-	LDI	ZL,Low(SRAM_START)	
-	LDI	ZH,High(SRAM_START)
-	CLR	R16			; Очищаем R16
-Flush:
-	ST 	Z+,R16			; Сохраняем 0 в ячейку памяти
-	CPI	ZH,High(RAMEND)		
-	BRNE	Flush			
+RAM_Flush:	LDI	ZL,Low(SRAM_START)	
+		LDI	ZH,High(SRAM_START)
+		CLR	R16			
+Flush:		ST 	Z+,R16			
+		CPI	ZH,High(RAMEND)		
+		BRNE	Flush			
  
-	CPI	ZL,Low(RAMEND)		
-	BRNE	Flush
+		CPI	ZL,Low(RAMEND)		
+		BRNE	Flush
  
- 	CLR	ZL			
-	CLR	ZH
-	CLR	R0
-	CLR	R1
-	CLR	R2
-	CLR	R3
-	CLR	R4
-	CLR	R5
-	CLR	R6
-	CLR	R7
-	CLR	R8
-	CLR	R9
-	CLR	R10
-	CLR	R11
-	CLR	R12
-	CLR	R13
-	CLR	R14
-	CLR	R15
-	CLR	R16
-	CLR	R17
-	CLR	R18
-	CLR	R19
-	CLR	R20
-	CLR	R21
-	CLR	R22
-	CLR	R23
-	CLR	R24
-	CLR	R25
-	CLR	R26
-	CLR	R27
-	CLR	R28
-	CLR	R29
+		CLR	ZL			
+		CLR	ZH
+		CLR	R0
+		CLR	R1
+		CLR	R2
+		CLR	R3
+		CLR	R4
+		CLR	R5
+		CLR	R6
+		CLR	R7
+		CLR	R8
+		CLR	R9
+		CLR	R10
+		CLR	R11
+		CLR	R12
+		CLR	R13
+		CLR	R14
+		CLR	R15
+		CLR	R16
+		CLR	R17
+		CLR	R18
+		CLR	R19
+		CLR	R20
+		CLR	R21
+		CLR	R22
+		CLR	R23
+		CLR	R24
+		CLR	R25
+		CLR	R26
+		CLR	R27
+		CLR	R28
+		CLR	R29
 ; End coreinit.inc
 
 ; Internal Hardware Init  ======================================
-	LDI R22, 10
-	LDI ZL, low(ArrayFLASH * 2)
-	LDI ZH, high(ArrayFLASH * 2)
-	LDI YL, low(Array)
-	LDI YH, high(Array)
+	
+Init:
+	;ENABLE RECEIVING IN USART
+	OUTI	UCSR0A, 0
+	OUTI	UCSR0C, (3 << UCSZ00); 8 bit packet
+	OUTI	UBRR0L, 103
+	OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
 
-	FLASH2RAM R22
+	OUTI	SPCR, (1 << SPIE) | (1 << SPE) | (1 << MSTR) | (1 << SPR1);ENABLE SPI IN MASTER MODE
 
-OUTI	UCSR0A, 0
-OUTI	UCSR0C, (3 << UCSZ00); 8 bit packet
-OUTI	UBRR0L, 103
-OUTI	UCSR0B, (1 << RXEN0) | (1 << RXCIE0)
+	OUTI	DDRB, (1 << DDB5) | (1 << DDB3) | (1 << DDB2);SCK, MOSI, SS
+	OUTI	PORTB, (1 << PORTB5) | (1 << PORTB4) | (1 << PORTB3) | (1 << PORTB2)
 
+
+	SEI
 ; End Internal Hardware Init ===================================
  
-; External Hardware Init  ======================================
- 
-; End Internal Hardware Init ===================================
- 
-; Run ==========================================================
- 
-; End Run ======================================================
-
-
-
-
-SEI
 
 ; Main =========================================================
+
 Main:
-	NOP
-	RJMP	Main
+		JMP	Main
 ; End Main =====================================================
 
 ; Procedure ====================================================
